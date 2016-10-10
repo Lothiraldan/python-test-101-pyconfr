@@ -152,8 +152,8 @@ from main import divisible_by_11
 
 class DivisibleBy11TestCase(unittest.TestCase):
 
-    def test_with_11(self):
-        self.assertTrue(divisible_by_11(11), True)
+    def test_divisible_11(self):
+        self.assertTrue(divisible_by_11(11))
 
 if __name__ == '__main__':
     unittest.main()
@@ -176,7 +176,7 @@ OK
 
 #VSLIDE
 
-## First launch
+## Verbose mode
 
 Out first test is passing, let's try again with more details:
 
@@ -188,6 +188,40 @@ test_with_11 (__main__.DivisibleBy11TestCase) ... ok
 Ran 1 test in 0.000s
 
 OK
+```
+
+#VSLIDE
+
+## Let's add a second one
+
+```python
+class DivisibleBy11TestCase(unittest.TestCase):
+
+    def test_not_divisible_9(self):
+        self.assertTrue(divisible_by_11(9))
+```
+
+#VSLIDE
+
+## Launch it
+
+```bash
+$> python -m tests.test_divisible_by_11
+test_divisible_11 (__main__.DivisibleBy11TestCase) ... ok
+test_not_divisible_9 (__main__.DivisibleBy11TestCase) ... FAIL
+
+======================================================================
+FAIL: test_not_divisible_9 (__main__.DivisibleBy11TestCase)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/lothiraldan/Labo/python-test-101-pyconfr/code/tests/test_divisible_by_11.py", line 11, in test_not_divisible_9
+    self.assertTrue(divisible_by_11(9))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+FAILED (failures=1)
 ```
 
 #HSLIDE
