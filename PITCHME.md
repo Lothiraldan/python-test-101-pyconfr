@@ -214,7 +214,7 @@ test_not_divisible_9 (__main__.DivisibleBy11TestCase) ... FAIL
 FAIL: test_not_divisible_9 (__main__.DivisibleBy11TestCase)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/lothiraldan/Labo/python-test-101-pyconfr/code/tests/test_divisible_by_11.py", line 11, in test_not_divisible_9
+  File ".../tests/test_divisible_by_11.py", line 11, in test_not_divisible_9
     self.assertTrue(divisible_by_11(9))
 AssertionError: False is not true
 
