@@ -232,11 +232,12 @@ FAILED (failures=1)
 pip install pytest pytest-sugar
 ```
 
-#VSLIDE?image=images/pytest.png
-
 ```bash
 pytest tests -v
 ```
+
+#VSLIDE?image=images/pytest.png
+
 
 #HSLIDE
 
