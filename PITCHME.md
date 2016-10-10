@@ -82,7 +82,7 @@ Import the standard module:
 import unittest
 ```
 
-#VLISDE
+#VSLIDE
 
 ## Line by line
 
@@ -92,7 +92,7 @@ Create a TestCase, a class which usually test the same SUT. Each test will share
 class DivisibleBy11TestCase(unittest.TestCase):
 ```
 
-#VLISDE
+#VSLIDE
 
 ## Line by line
 
@@ -107,7 +107,7 @@ The `setUp` method can be used for initializing an environment for all the test 
 
 In our case we don't need it. <!-- .element: class="fragment" -->
 
-#VLISDE
+#VSLIDE
 
 ## Line by line
 
