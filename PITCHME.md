@@ -226,6 +226,20 @@ FAILED (failures=1)
 
 #HSLIDE
 
+## Launch it with a better test runner
+
+```bash
+pip install pytest pytest-sugar
+```
+
+#VSLIDE?image=images/pytest.png
+
+```bash
+pytest tests -v
+```
+
+#HSLIDE
+
 ## Doctests
 
 #HSLIDE
