@@ -1,4 +1,7 @@
 import unittest
+
+import pytest
+
 from main import Number
 
 
@@ -16,7 +19,15 @@ class DivisibleBy11TestCase(unittest.TestCase):
 
         result = number.divisible_by_11()
 
-        self.assertTrue(result, "9 should be divisible by 11")
+        self.assertEqual(result, False, "9 should not be divisible by 11")
+
+    @pytest.mark.parametrize("number", range(10))
+    def test_first_eleven_multiples(self, number):
+        number = Number(number)
+
+        result = number.divisible_by_11()
+
+        self.assertTrue(result)
 
 if __name__ == '__main__':
     unittest.main()

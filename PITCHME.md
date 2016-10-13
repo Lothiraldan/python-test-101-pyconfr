@@ -345,6 +345,98 @@ tests/test_divisible_by_11.py:19: AssertionError
 
 #HSLIDE
 
+## Test severals numbers
+
+```python
+    def test_first_eleven_multiples(self):
+        for i in range(10):
+            number = Number(11 * i)
+
+            result = number.divisible_by_11()
+
+            self.assertTrue(result)
+```
+
+#VSLIDE
+
+## Should 0 be divisible by 11?
+
+Let's not ask our mathematician friend and say no for the sake of the exercice.
+
+The test is passing but it's not what we want.
+
+#VSLIDE
+
+## First rule of tests
+
+>Tests can only prove the presence of features, not the absence of bugs.
+
+#VSLIDE
+
+## Fix the code
+
+```python
+    def divisible_by_11(self):
+        """Uses above criterion to check if number is divisible by 11"""
+        if self.number == 0:
+            return False
+        string_number = str(self.number)
+        alternating_sum = sum([(-1) ** i * int(d) for i, d
+                               in enumerate(string_number)])
+        return alternating_sum == 0
+```
+
+#VSLIDE
+
+## Rerun the tests
+
+```python
+tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_divisible_11 PASSED
+tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_first_eleven_multiples FAILED
+tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_not_divisible_9 PASSED
+
+======================================== FAILURES ========================================
+___________________ DivisibleBy11TestCase.test_first_eleven_multiples ____________________
+
+self = <tests.test_divisible_by_11.DivisibleBy11TestCase testMethod=test_first_eleven_multiples>
+
+    def test_first_eleven_multiples(self):
+        for i in range(10):
+            number = Number(11 * i)
+
+            result = number.divisible_by_11()
+
+>           self.assertTrue(result)
+E           AssertionError: False is not true
+
+tests/test_divisible_by_11.py:27: AssertionError
+================= 1 failed, 2 passed, 1 pytest-warnings in 0.02 seconds ==================
+```
+
+#VSLIDE
+
+## Second rule of tests
+
+>Don't use loops in tests! NEVER!
+
+#VSLIDE
+
+## Instead leverage your test framework
+
+Using `pytest.mark.parametrize`
+
+```python
+import pytest
+
+    @pytest.mark.parametrize("number", range(10))
+    def test_first_eleven_multiples(self, number):
+        number = Number(number)
+
+        result = number.divisible_by_11()
+
+        self.assertTrue(result)
+```
+
 #HSLIDE
 
 ## Doctests
