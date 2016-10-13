@@ -35,12 +35,17 @@ Let's take a function that test divisibility by 11 that use the following proper
 Let's write the function (file `main.py`):
 
 ```python
-def divisible_by_11(number):
-    """Uses above criterion to check if number is divisible by 11"""
-    string_number = str(number)
-    alternating_sum = sum([(-1) ** i * int(d) for i, d
-                           in enumerate(string_number)])
-    return alternating_sum == 0
+class Number(object):
+
+    def __init__(self, number):
+        self.number = number
+
+    def divisible_by_11(self):
+        """Uses above criterion to check if number is divisible by 11"""
+        string_number = str(self.number)
+        alternating_sum = sum([(-1) ** i * int(d) for i, d
+                               in enumerate(string_number)])
+        return alternating_sum == 0
 ```
 
 #HSLIDE
@@ -153,7 +158,11 @@ from main import divisible_by_11
 class DivisibleBy11TestCase(unittest.TestCase):
 
     def test_divisible_11(self):
-        self.assertTrue(divisible_by_11(11))
+        number = Number(11)
+
+        result = number.divisible_by_11()
+
+        self.assertTrue(result)
 
 if __name__ == '__main__':
     unittest.main()
@@ -198,7 +207,11 @@ OK
 class DivisibleBy11TestCase(unittest.TestCase):
 
     def test_not_divisible_9(self):
-        self.assertTrue(divisible_by_11(9))
+        number = Number(9)
+
+        result = number.divisible_by_11()
+
+        self.assertTrue(result)
 ```
 
 #VSLIDE
@@ -238,6 +251,99 @@ pytest tests -v
 
 #VSLIDE?image=images/pytest.png
 
+#HSLIDE
+
+## Anatomy of a test
+
+```python
+    def test_something(self):
+        preparation()
+
+        execution()
+
+        assertions()
+```
+
+#VSLIDE
+
+## Preparation
+
+In the preparation phase, we prepare everything for being able to execute our test scenario. 
+
+#VSLIDE
+
+## Execution
+
+In the execution phase, we call some functions and methods that should either return something or alter something in the environment.
+
+#VSLIDE
+
+## Assertions
+
+In the assertions phase, we check that returns is what we expect or the environment has been altered the way we expect it to be.
+
+#VSLIDE
+
+## List of assertions
+
+* assertEqual
+* assertNotEqual
+* assertTrue
+* assertFalse
+* ...
+
+https://docs.python.org/3/library/unittest.html?highlight=unittest#assert-methods
+
+#VSLIDE
+
+## List of assertions
+
+Each of these methods returns meaningfull error messages to help you quickly debug your tests. But we can customize them.
+
+#VSLIDE
+
+## Message customization
+
+```python
+class DivisibleBy11TestCase(unittest.TestCase):
+
+    def test_not_divisible_9(self):
+        number = Number(9)
+
+        result = number.divisible_by_11()
+
+        self.assertTrue(result, "9 should be divisible by 11")
+```
+
+#VSLIDE
+
+## Launch it again
+
+```python
+tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_divisible_11 PASSED
+tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_not_divisible_9 FAILED
+
+======================================== FAILURES ========================================
+_______________________ DivisibleBy11TestCase.test_not_divisible_9 _______________________
+
+self = <tests.test_divisible_by_11.DivisibleBy11TestCase testMethod=test_not_divisible_9>
+
+    def test_not_divisible_9(self):
+        number = Number(9)
+
+        result = number.divisible_by_11()
+
+>       self.assertTrue(result, "9 should be divisible by 11")
+E       AssertionError: 9 should be divisible by 11
+
+tests/test_divisible_by_11.py:19: AssertionError
+```
+
+#VSLIDE
+
+## Let's fix the `test_not_divisible_9` test using `assertEqual` or `assertNotEqual`.
+
+#HSLIDE
 
 #HSLIDE
 
