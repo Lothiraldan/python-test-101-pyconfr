@@ -21,13 +21,15 @@ class DivisibleBy11TestCase(unittest.TestCase):
 
         self.assertEqual(result, False, "9 should not be divisible by 11")
 
-    @pytest.mark.parametrize("number", range(10))
-    def test_first_eleven_multiples(self, number):
-        number = Number(number)
 
-        result = number.divisible_by_11()
+@pytest.mark.parametrize("number", range(10))
+def test_first_eleven_multiples(number):
+    number = Number(number * 11)
 
-        self.assertTrue(result)
+    result = number.divisible_by_11()
+
+    assert result is True
+
 
 if __name__ == '__main__':
     unittest.main()

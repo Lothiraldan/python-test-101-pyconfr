@@ -62,16 +62,12 @@ Unittest is a standard module in the Python standard library, it helps us struct
 import unittest
 
 class DivisibleBy11TestCase(unittest.TestCase):
-
     def setUp(self):
-        ...
-
+        pass
     def tearDown(self):
-        ...
-
+        pass
     def test_divisible_by_11(self):
-        ...
-
+        pass
 
 if __name__ == '__main__':
     unittest.main()
@@ -428,13 +424,53 @@ Using `pytest.mark.parametrize`
 ```python
 import pytest
 
+@pytest.mark.parametrize("number", range(10))
+def test_first_eleven_multiples(self, number):
+    number = Number(number * 11)
+
+    result = number.divisible_by_11()
+
+    assert result is True
+```
+
+#VSLIDE
+
+## Output
+
+```
+tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_divisible_11 PASSED
+tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_not_divisible_9 PASSED
+tests/test_divisible_by_11.py::test_first_eleven_multiples[0] FAILED
+tests/test_divisible_by_11.py::test_first_eleven_multiples[1] PASSED
+tests/test_divisible_by_11.py::test_first_eleven_multiples[2] PASSED
+tests/test_divisible_by_11.py::test_first_eleven_multiples[3] PASSED
+tests/test_divisible_by_11.py::test_first_eleven_multiples[4] PASSED
+tests/test_divisible_by_11.py::test_first_eleven_multiples[5] PASSED
+tests/test_divisible_by_11.py::test_first_eleven_multiples[6] PASSED
+tests/test_divisible_by_11.py::test_first_eleven_multiples[7] PASSED
+tests/test_divisible_by_11.py::test_first_eleven_multiples[8] PASSED
+tests/test_divisible_by_11.py::test_first_eleven_multiples[9] PASSED
+```
+
+#VSLIDE
+
+```
+======================================== FAILURES ========================================
+_____________________________ test_first_eleven_multiples[0] _____________________________
+
+number = <main.Number object at 0x1036b4590>
+
     @pytest.mark.parametrize("number", range(10))
-    def test_first_eleven_multiples(self, number):
-        number = Number(number)
+    def test_first_eleven_multiples(number):
+        number = Number(number * 11)
 
         result = number.divisible_by_11()
 
-        self.assertTrue(result)
+>       assert result is True
+E       assert False is True
+
+tests/test_divisible_by_11.py:31: AssertionError
+================= 1 failed, 11 passed, 1 pytest-warnings in 0.04 seconds =================
 ```
 
 #HSLIDE
