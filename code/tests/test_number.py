@@ -40,16 +40,9 @@ def test_first_ten_numbers(number):
     assert result is False
 
 
-def test_floor_half():
-    number = Number(2.5)
-
-    assert number.floor() == 3
-
-
-def test_floor_pi():
-    number = Number(math.pi)
-
-    assert number.floor() == 4
+def test_ceil_int():
+    number = Number(3)
+    assert number.ceil() == 3
 
 if __name__ == '__main__':
     unittest.main()

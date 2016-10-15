@@ -598,6 +598,39 @@ What is the ceil of an integer?
 
 >Tests can only prove the presence of features, not the absence of bugs.
 
+#VSLIDE
+
+## Add a new test and fix the code!
+
+#VSLIDE
+
+## New test
+
+```python
+def test_ceil_int():
+    number = Number(3)
+    assert number.ceil() == 3
+```
+
+#VSLIDE
+
+## Main.py
+
+```python
+    def ceil(self):
+        """ Returns the largest integer value less than or equal to
+        current number.
+        >>> Number(2.5).ceil()
+        3
+        >>> import math
+        >>> Number(math.pi).ceil()
+        4
+        """
+        if self.number % 1 > 0:
+            return int(self.number) + 1
+        return self.number
+```
+
 #HSLIDE
 
 ## TDD

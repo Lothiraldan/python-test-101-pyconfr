@@ -26,5 +26,6 @@ class Number(object):
         >>> Number(math.pi).ceil()
         4
         """
-        if self.number % 1 >= 0:
+        if self.number % 1 > 0:
             return int(self.number) + 1
+        return self.number
