@@ -576,6 +576,28 @@ ok
 Test passed.
 ```
 
+#VSLIDE
+
+## Small problem
+
+What is the ceil of an integer?
+
+```python
+>>> import math
+>>> math.ceil(3)
+3
+>>> import main
+>>> number = main.Number(3)
+>>> number.ceil()
+4
+```
+
+#VSLIDE
+
+## Second rule of tests
+
+>Tests can only prove the presence of features, not the absence of bugs.
+
 #HSLIDE
 
 ## TDD
