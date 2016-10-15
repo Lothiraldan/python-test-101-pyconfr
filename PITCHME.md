@@ -36,7 +36,7 @@ https://github.com/Lothiraldan/python-test-101-pyconfr
 
 ## Testing, why?
 
-<img src="images/tester-douter.jpg.jpg" height="400"/> <!-- .element: class="fragment" -->
+<img src="images/tester-douter.jpg" height="400"/> <!-- .element: class="fragment" -->
 
 #VSLIDE
 
