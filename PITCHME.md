@@ -566,7 +566,7 @@ From the python documentation:
 
 #VSLIDE
 
-## First doctest
+## First doctests
 
 ```python
     def ceil(self):
@@ -603,15 +603,7 @@ Trying:
 Expecting:
     4
 ok
-4 items had no tests:
-    main
-    main.Number
-    main.Number.__init__
-    main.Number.is_odd
-1 items passed all tests:
-   3 tests in main.Number.ceil
-3 tests in 5 items.
-3 passed and 0 failed.
+...
 Test passed.
 ```
 
