@@ -24,10 +24,7 @@ I work at sqreen.io where we bring security to every developer.
 
 ## What is a test?
 
->Checking that one aspect of the application behaves like expected.
-
-#VSLIDE
-
+>Checking that one aspect of the application behaves like expected. <!-- .element: class="fragment" -->
 
 #HSLIDE
 
