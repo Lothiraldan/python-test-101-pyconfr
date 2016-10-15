@@ -6,3 +6,7 @@
 .reveal pre code {
     max-height: 500px;
 }
+
+.reveal blockquote {
+    width: 90%;
+}
