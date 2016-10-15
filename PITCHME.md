@@ -578,6 +578,30 @@ Test passed.
 
 #VSLIDE
 
+## With py.test
+
+```python
+$> py.test --doctest-modules tests main.py -v
+tests/test_number.py::IsOddTestCase::test_is_not_odd_4 PASSED
+tests/test_number.py::IsOddTestCase::test_is_odd_1 PASSED
+tests/test_number.py::test_first_ten_numbers[0] PASSED
+tests/test_number.py::test_first_ten_numbers[1] PASSED
+tests/test_number.py::test_first_ten_numbers[2] PASSED
+tests/test_number.py::test_first_ten_numbers[3] PASSED
+tests/test_number.py::test_first_ten_numbers[4] PASSED
+tests/test_number.py::test_first_ten_numbers[5] PASSED
+tests/test_number.py::test_first_ten_numbers[6] PASSED
+tests/test_number.py::test_first_ten_numbers[7] PASSED
+tests/test_number.py::test_first_ten_numbers[8] PASSED
+tests/test_number.py::test_first_ten_numbers[9] PASSED
+tests/test_number.py::test_ceil_int PASSED
+main.py::main.Number.ceil PASSED
+
+====================== 14 passed ======================
+```
+
+#VSLIDE
+
 ## Small problem
 
 What is the ceil of an integer?
