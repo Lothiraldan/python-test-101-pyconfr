@@ -190,7 +190,7 @@ class IsOddTestCase(unittest.TestCase):
         result = number.is_odd()
 
         self.assertTrue(result)
-s
+
 if __name__ == '__main__':
     unittest.main()
 ```
