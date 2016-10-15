@@ -510,37 +510,6 @@ tests/test_number.py::test_first_ten_numbers[9] PASSED
 
 #HSLIDE
 
-## Let's add some tests
-
-```python
-import math
-
-def test_floor_half():
-    number = Number(2.5)
-
-    assert number.floor() == 3
-
-def test_floor_pi():
-    number = Number(math.pi)
-
-    assert number.floor() == 4
-```
-
-#VSLIDE
-
-## And run them
-
-```python
-tests/test_number.py::test_floor_half PASSED
-tests/test_number.py::test_floor_pi PASSED
-
-====================== 14 passed in 0.04 seconds ======================
-```
-
-#VSLIDE
-
-#HSLIDE
-
 ## Doctests
 
 Let's add a new method `ceil`
