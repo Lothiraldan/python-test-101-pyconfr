@@ -57,9 +57,9 @@ https://github.com/Lothiraldan/python-test-101-pyconfr
 
 ## System Under Test
 
-Let's take a function that test divisibility by 11 that use the following property:
+Let's take a `Number` class with an `is_odd` method and test it.
 
->A number is divisible by 11 if and only if the alternating (in sign) sum of the number’s digits is 0.
+The piece of code we test is called `System under test`.
 
 #VSLIDE
 
@@ -68,17 +68,15 @@ Let's take a function that test divisibility by 11 that use the following proper
 Let's write the function (file `main.py`):
 
 ```python
-class Number(object):
+class Number():
 
     def __init__(self, number):
         self.number = number
 
-    def divisible_by_11(self):
-        """Uses above criterion to check if number is divisible by 11"""
-        string_number = str(self.number)
-        alternating_sum = sum([(-1) ** i * int(d) for i, d
-                               in enumerate(string_number)])
-        return alternating_sum == 0
+    def is_odd(self):
+        """ Return True is the number is odd
+        """
+        return self.number % 2 == 1
 ```
 
 #HSLIDE
@@ -94,7 +92,7 @@ Unittest is a standard module in the Python standard library, it helps us struct
 ```python
 import unittest
 
-class DivisibleBy11TestCase(unittest.TestCase):
+class IsOddTestCase(unittest.TestCase):
     def setUp(self):
         pass
     def tearDown(self):
@@ -123,14 +121,14 @@ import unittest
 Create a TestCase, a class which usually test the same SUT. Each test will share the setUp and tearDown methods.
 
 ```python
-class DivisibleBy11TestCase(unittest.TestCase):
+class IsOddTestCase(unittest.TestCase):
 ```
 
 #VSLIDE
 
 ## Line by line
 
-The `setUp` method can be used for initializing an environment for all the test methods of the TestCase. It is called before each test method:
+The `setUp` method can be used for initializing an environment for all the test methods of the TestCase. It is called before each test method, for example:
 
 ```python
     def setUp(self):
@@ -159,7 +157,7 @@ The `tearDown` method can be used to clean an environment after a test. It's cal
 Our test code will go in methods that starts with `test_`.
 
 ```python
-    def test_divisible_by_11(self):
+    def test_is_odd_1(self):
         ...
 ```
 
@@ -178,21 +176,21 @@ if __name__ == '__main__':
 
 ## First test
 
-Let's start with a simple example (file `tests/test_divisible_by_11.py`):
+Let's start with a simple example (file `tests/test_number.py`):
 
 ```python
 import unittest
-from main import divisible_by_11
+from main import Number
 
-class DivisibleBy11TestCase(unittest.TestCase):
+class IsOddTestCase(unittest.TestCase):
 
-    def test_divisible_11(self):
-        number = Number(11)
+    def test_is_odd_1(self):
+        number = Number(1)
 
-        result = number.divisible_by_11()
+        result = number.is_odd()
 
         self.assertTrue(result)
-
+s
 if __name__ == '__main__':
     unittest.main()
 ```
@@ -204,7 +202,7 @@ if __name__ == '__main__':
 Let's launch it:
 
 ```bash
-$> python -m tests.test_divisible_by_11
+$> python -m tests.test_number
 .
 ----------------------------------------------------------------------
 Ran 1 test in 0.000s
@@ -219,8 +217,8 @@ OK
 Out first test is passing, let's try again with more details:
 
 ```bash
-$> python -m tests.test_divisible_by_11
-test_with_11 (__main__.DivisibleBy11TestCase) ... ok
+$> python -m tests.test_number -v
+test_is_odd_1 (__main__.IsOddTestCase) ... ok
 
 ----------------------------------------------------------------------
 Ran 1 test in 0.000s
@@ -233,12 +231,12 @@ OK
 ## Let's add a second one
 
 ```python
-class DivisibleBy11TestCase(unittest.TestCase):
+class IsOddTestCase(unittest.TestCase):
 
-    def test_not_divisible_9(self):
-        number = Number(9)
+    def test_is_not_odd_4(self):
+        number = Number(4)
 
-        result = number.divisible_by_11()
+        result = number.is_odd()
 
         self.assertTrue(result)
 ```
@@ -248,16 +246,16 @@ class DivisibleBy11TestCase(unittest.TestCase):
 ## Launch it
 
 ```bash
-$> python -m tests.test_divisible_by_11
-test_divisible_11 (__main__.DivisibleBy11TestCase) ... ok
-test_not_divisible_9 (__main__.DivisibleBy11TestCase) ... FAIL
+$> python -m tests.test_number -v
+test_is_not_odd_4 (__main__.IsOddTestCase) ... FAIL
+test_is_odd_1 (__main__.IsOddTestCase) ... ok
 
 ======================================================================
-FAIL: test_not_divisible_9 (__main__.DivisibleBy11TestCase)
+FAIL: test_is_not_odd_4 (__main__.IsOddTestCase)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File ".../tests/test_divisible_by_11.py", line 11, in test_not_divisible_9
-    self.assertTrue(divisible_by_11(9))
+  File ".../code/tests/test_number.py", line 22, in test_is_not_odd_4
+    self.assertTrue(result)
 AssertionError: False is not true
 
 ----------------------------------------------------------------------
@@ -334,14 +332,14 @@ Each of these methods returns meaningfull error messages to help you quickly deb
 ## Message customization
 
 ```python
-class DivisibleBy11TestCase(unittest.TestCase):
+class IsOddTestCase(unittest.TestCase):
 
-    def test_not_divisible_9(self):
-        number = Number(9)
+    def test_is_not_odd_4(self):
+        number = Number(4)
 
-        result = number.divisible_by_11()
+        result = number.is_odd()
 
-        self.assertTrue(result, "9 should be divisible by 11")
+        self.assertTrue(result, "4 should be odd")
 ```
 
 #VSLIDE
@@ -349,102 +347,74 @@ class DivisibleBy11TestCase(unittest.TestCase):
 ## Launch it again
 
 ```python
-tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_divisible_11 PASSED
-tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_not_divisible_9 FAILED
+tests/test_number.py::IsOddTestCase::test_is_not_odd_4 FAILED
+tests/test_number.py::IsOddTestCase::test_is_odd_1 PASSED
 
 ======================================== FAILURES ========================================
-_______________________ DivisibleBy11TestCase.test_not_divisible_9 _______________________
+____________________________ IsOddTestCase.test_is_not_odd_4 _____________________________
 
-self = <tests.test_divisible_by_11.DivisibleBy11TestCase testMethod=test_not_divisible_9>
+self = <tests.test_number.IsOddTestCase testMethod=test_is_not_odd_4>
 
-    def test_not_divisible_9(self):
-        number = Number(9)
+    def test_is_not_odd_4(self):
+        number = Number(4)
 
-        result = number.divisible_by_11()
+        result = number.is_odd()
 
->       self.assertTrue(result, "9 should be divisible by 11")
-E       AssertionError: 9 should be divisible by 11
+>       self.assertTrue(result)
+E       AssertionError: False is not true
 
-tests/test_divisible_by_11.py:19: AssertionError
+tests/test_number.py:22: AssertionError
+================= 1 failed, 1 passed, 1 pytest-warnings in 0.02 seconds ==================
 ```
 
 #VSLIDE
 
-## Let's fix the `test_not_divisible_9` test using `assertEqual` or `assertNotEqual`.
+## Let's fix the `test_is_not_odd_4` test using `assertEqual` or `assertNotEqual`.
 
 #HSLIDE
 
-## Test severals numbers
+## Test severals numbers at the same time
 
 ```python
-    def test_first_eleven_multiples(self):
+    def test_first_ten_numbers(self):
         for i in range(10):
-            number = Number(11 * i)
+            number = Number(i * 1)
 
-            result = number.divisible_by_11()
+            result = number.isOdd()
 
             self.assertTrue(result)
 ```
 
 #VSLIDE
 
-## Should 0 be divisible by 11?
-
-Let's not ask our mathematician friend and say no for the sake of the exercice.
-
-The test is passing but it's not what we want.
-
-#VSLIDE
-
-## First rule of tests
-
->Tests can only prove the presence of features, not the absence of bugs.
-
-#VSLIDE
-
-## Fix the code
+## Result
 
 ```python
-    def divisible_by_11(self):
-        """Uses above criterion to check if number is divisible by 11"""
-        if self.number == 0:
-            return False
-        string_number = str(self.number)
-        alternating_sum = sum([(-1) ** i * int(d) for i, d
-                               in enumerate(string_number)])
-        return alternating_sum == 0
-```
-
-#VSLIDE
-
-## Rerun the tests
-
-```python
-tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_divisible_11 PASSED
-tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_first_eleven_multiples FAILED
-tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_not_divisible_9 PASSED
+tests/test_number.py::IsOddTestCase::test_first_ten_numbers FAILED
+tests/test_number.py::IsOddTestCase::test_is_not_odd_4 PASSED
+tests/test_number.py::IsOddTestCase::test_is_odd_1 PASSED
 
 ======================================== FAILURES ========================================
-___________________ DivisibleBy11TestCase.test_first_eleven_multiples ____________________
+__________________________ IsOddTestCase.test_first_ten_numbers __________________________
 
-self = <tests.test_divisible_by_11.DivisibleBy11TestCase testMethod=test_first_eleven_multiples>
+self = <tests.test_number.IsOddTestCase testMethod=test_first_ten_numbers>
 
-    def test_first_eleven_multiples(self):
+    def test_first_ten_numbers(self):
         for i in range(10):
-            number = Number(11 * i)
+            number = Number(i * 1)
 
-            result = number.divisible_by_11()
+            result = number.is_odd()
 
 >           self.assertTrue(result)
 E           AssertionError: False is not true
 
-tests/test_divisible_by_11.py:27: AssertionError
+tests/test_number.py:30: AssertionError
 ================= 1 failed, 2 passed, 1 pytest-warnings in 0.02 seconds ==================
 ```
 
 #VSLIDE
 
-## Second rule of tests
+## First rule of tests
 
 >Don't use loops in tests! NEVER!
 
@@ -458,12 +428,12 @@ Using `pytest.mark.parametrize`
 import pytest
 
 @pytest.mark.parametrize("number", range(10))
-def test_first_eleven_multiples(self, number):
-    number = Number(number * 11)
+def test_first_ten_numbers(number):
+    number = Number(number * 1)
 
-    result = number.divisible_by_11()
+    result = number.is_odd()
 
-    assert result is True
+    assert result is False
 ```
 
 #VSLIDE
@@ -471,44 +441,179 @@ def test_first_eleven_multiples(self, number):
 ## Output
 
 ```
-tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_divisible_11 PASSED
-tests/test_divisible_by_11.py::DivisibleBy11TestCase::test_not_divisible_9 PASSED
-tests/test_divisible_by_11.py::test_first_eleven_multiples[0] FAILED
-tests/test_divisible_by_11.py::test_first_eleven_multiples[1] PASSED
-tests/test_divisible_by_11.py::test_first_eleven_multiples[2] PASSED
-tests/test_divisible_by_11.py::test_first_eleven_multiples[3] PASSED
-tests/test_divisible_by_11.py::test_first_eleven_multiples[4] PASSED
-tests/test_divisible_by_11.py::test_first_eleven_multiples[5] PASSED
-tests/test_divisible_by_11.py::test_first_eleven_multiples[6] PASSED
-tests/test_divisible_by_11.py::test_first_eleven_multiples[7] PASSED
-tests/test_divisible_by_11.py::test_first_eleven_multiples[8] PASSED
-tests/test_divisible_by_11.py::test_first_eleven_multiples[9] PASSED
+tests/test_number.py::IsOddTestCase::test_is_not_odd_4 PASSED
+tests/test_number.py::IsOddTestCase::test_is_odd_1 PASSED
+tests/test_number.py::test_first_ten_numbers[0] PASSED
+tests/test_number.py::test_first_ten_numbers[1] FAILED
+tests/test_number.py::test_first_ten_numbers[2] PASSED
+tests/test_number.py::test_first_ten_numbers[3] FAILED
+tests/test_number.py::test_first_ten_numbers[4] PASSED
+tests/test_number.py::test_first_ten_numbers[5] FAILED
+tests/test_number.py::test_first_ten_numbers[6] PASSED
+tests/test_number.py::test_first_ten_numbers[7] FAILED
+tests/test_number.py::test_first_ten_numbers[8] PASSED
+tests/test_number.py::test_first_ten_numbers[9] FAILED
 ```
 
 #VSLIDE
 
 ```
 ======================================== FAILURES ========================================
-_____________________________ test_first_eleven_multiples[0] _____________________________
+_______________________________ test_first_ten_numbers[1] ________________________________
 
-number = <main.Number object at 0x1036b4590>
+number = <main.Number object at 0x107e11510>
 
     @pytest.mark.parametrize("number", range(10))
-    def test_first_eleven_multiples(number):
-        number = Number(number * 11)
+    def test_first_ten_numbers(number):
+        number = Number(number * 1)
 
-        result = number.divisible_by_11()
+        result = number.is_odd()
 
->       assert result is True
-E       assert False is True
+>       assert result is False
+E       assert True is False
 
-tests/test_divisible_by_11.py:31: AssertionError
-================= 1 failed, 11 passed, 1 pytest-warnings in 0.04 seconds =================
+tests/test_number.py:39: AssertionError
+```
+
+#VSLIDE
+
+## Fix the test
+
+```python
+@pytest.mark.parametrize("number", range(10))
+def test_first_ten_numbers(number):
+    number = Number(number * 2)
+
+    result = number.is_odd()
+
+    assert result is False
+```
+
+#VSLIDE
+
+## And rerun
+
+```python
+tests/test_number.py::IsOddTestCase::test_is_not_odd_4 PASSED
+tests/test_number.py::IsOddTestCase::test_is_odd_1 PASSED
+tests/test_number.py::test_first_ten_numbers[0] PASSED
+tests/test_number.py::test_first_ten_numbers[1] PASSED
+tests/test_number.py::test_first_ten_numbers[2] PASSED
+tests/test_number.py::test_first_ten_numbers[3] PASSED
+tests/test_number.py::test_first_ten_numbers[4] PASSED
+tests/test_number.py::test_first_ten_numbers[5] PASSED
+tests/test_number.py::test_first_ten_numbers[6] PASSED
+tests/test_number.py::test_first_ten_numbers[7] PASSED
+tests/test_number.py::test_first_ten_numbers[8] PASSED
+tests/test_number.py::test_first_ten_numbers[9] PASSED
 ```
 
 #HSLIDE
 
+## Let's add some tests
+
+```python
+import math
+
+def test_floor_half():
+    number = Number(2.5)
+
+    assert number.floor() == 3
+
+def test_floor_pi():
+    number = Number(math.pi)
+
+    assert number.floor() == 4
+```
+
+#VSLIDE
+
+## And run them
+
+```python
+tests/test_number.py::test_floor_half PASSED
+tests/test_number.py::test_floor_pi PASSED
+
+====================== 14 passed in 0.04 seconds ======================
+```
+
+#VSLIDE
+
+#HSLIDE
+
 ## Doctests
+
+Let's add a new method `ceil`
+
+```python
+class Number():
+
+    def ceil(self):
+        """ Returns the largest integer value less than or equal to
+        current number.
+        """
+        if self.number % 1 >= 0:
+            return int(self.number) + 1
+```
+
+#VSLIDE
+
+## Doctests késako
+
+From the python documentation:
+
+>The doctest module searches for pieces of text that look like interactive Python sessions, and then executes those sessions to verify that they work exactly as shown.
+
+#VSLIDE
+
+## First doctest
+
+```python
+    def ceil(self):
+        """ Returns the largest integer value less than or equal to
+        current number.
+        >>> Number(2.5).ceil()
+        3
+        >>> import math
+        >>> Number(math.pi).ceil()
+        4
+        """
+        if self.number % 1 >= 0:
+            return int(self.number) + 1
+```
+
+#VSLIDE
+
+## Launch it
+
+```python
+$> python -m doctest main.py
+python -m doctest -v main.py
+Trying:
+    Number(2.5).ceil()
+Expecting:
+    3
+ok
+Trying:
+    import math
+Expecting nothing
+ok
+Trying:
+    Number(math.pi).ceil()
+Expecting:
+    4
+ok
+4 items had no tests:
+    main
+    main.Number
+    main.Number.__init__
+    main.Number.is_odd
+1 items passed all tests:
+   3 tests in main.Number.ceil
+3 tests in 5 items.
+3 passed and 0 failed.
+Test passed.
+```
 
 #HSLIDE
 
