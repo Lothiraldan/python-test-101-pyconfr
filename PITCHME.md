@@ -2,7 +2,7 @@
 
 ## Pycon-fr 2016
 
-Python monkey-patching in production.
+Python testing 101.
 
 #VSLIDE
 
