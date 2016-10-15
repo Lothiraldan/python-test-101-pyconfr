@@ -22,6 +22,36 @@ I work at sqreen.io where we bring security to every developer.
 
 #HSLIDE
 
+## What is a test?
+
+>Checking that one aspect of the application behaves like expected.
+
+#VSLIDE
+
+
+#HSLIDE
+
+## Testing, why?
+
+<img src="images/tester-douter.jpg.jpg" height="400"/> <!-- .element: class="fragment" -->
+
+#VSLIDE
+
+## Seriously
+
+* Ensure code quality. <!-- .element: class="fragment" -->
+* Check that there is no regression. <!-- .element: class="fragment" -->
+* Detect new bugs. <!-- .element: class="fragment" -->
+
+#VSLIDE
+
+## Real-reason
+
+>"Did I just break something else with that change?" With automated tests, when I start to feel stress, I run the tests. Tests are the Programmer’s Stone, transmuting fear into boredom. "No, I didn’t break anything. The tests are all still green." - Kent Beck
+
+
+#HSLIDE
+
 ## System Under Test
 
 Let's take a function that test divisibility by 11 that use the following property:
