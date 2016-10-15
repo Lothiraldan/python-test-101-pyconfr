@@ -22,6 +22,12 @@ I work at sqreen.io where we bring security to every developer.
 
 #HSLIDE
 
+## Source code is available online
+
+https://github.com/Lothiraldan/python-test-101-pyconfr
+
+#HSLIDE
+
 ## What is a test?
 
 >Checking that one aspect of the application behaves like expected. <!-- .element: class="fragment" -->
