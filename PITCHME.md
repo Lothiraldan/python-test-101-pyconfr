@@ -696,6 +696,10 @@ $> py.test --doctest-modules tests main.py -v --cov=main --cov-report=html
 
 #HSLIDE
 
+## Development workflow
+
+<img src="images/waterfall.jpg" />
+
 ## TDD
 
 <img src="images/tdd_flow.gif" />
