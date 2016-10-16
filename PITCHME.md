@@ -706,12 +706,263 @@ $> py.test --doctest-modules tests main.py -v --cov=main --cov-report=html
 
 <img src="images/tdd_flow.gif" />
 
+#VSLIDE
+
+## get_sign method
+
+Let's add test for a non-existing test_sign method that must follow these requirements:
+
+* Number(1).get_sign() == '+'
+* Number(-1).get_sign() == '-'
+* Number(0).get_sign() == '+'
+
+#VSLIDE
+
+## get_sign tests
+
+```python
+def test_get_sign_1():
+    assert Number(1).get_sign() == '+'
+
+def test_get_sign_minus_1():
+    assert Number(-1).get_sign() == '-'
+
+def test_get_sign_zero():
+    assert Number(0).get_sign() == '+'
+```
+
+#VSLIDE
+
+## Launch it
+
+```python
+_____________ test_get_sign_1 _____________________________________
+
+    def test_get_sign_1():
+>       assert Number(1).get_sign() == '+'
+E       AttributeError: 'Number' object has no attribute 'get_sign'
+
+tests/test_number.py:49: AttributeError
+```
+
+#VSLIDE
+
+## A small step at the time
+
+```python
+class Number():
+
+    def get_sign(self):
+        pass
+```
+
+#VSLIDE
+
+## Relaunch the tests
+
+```python
+____________________________________ test_get_sign_1 _____________________________________
+
+    def test_get_sign_1():
+>       assert Number(1).get_sign() == '+'
+E       assert None == '+'
+E        +  where None = <bound method Number.get_sign of <main.Number object at 0x10f00bc90>>()
+E        +    where <bound method Number.get_sign of <main.Number object at 0x10f00bc90>> = <main.Number object at 0x10f00bc90>.get_sign
+E        +      where <main.Number object at 0x10f00bc90> = Number(1)
+
+tests/test_number.py:49: AssertionError
+```
+
+#VSLIDE
+
+## Fix the code!
+
+#VSLIDE
+
+## Code
+
+```python
+class Number():
+
+    def get_sign(self):
+        if self.number >= 1:
+            return "+"
+        else:
+            return "-"
+```
+
+#VSLIDE
+
+## Result
+
+```
+...
+tests/test_number.py::test_get_sign_1 PASSED
+tests/test_number.py::test_get_sign_minus_1 PASSED
+tests/test_number.py::test_get_sign_zero FAILED
+...
+```
+
+#VSLIDE
+
+## Result
+
+```python
+___________________________________ test_get_sign_zero ___________________________________
+
+    def test_get_sign_zero():
+>       assert Number(0).get_sign() == '+'
+E       assert '-' == '+'
+E         - -
+E         + +
+
+tests/test_number.py:57: AssertionError
+```
+
+#VSLIDE
+
+## Fix the code
+
+#VSLIDE
+
+## Fixed code
+
+```python
+class Number():
+
+    def get_sign(self):
+        if self.number <= -1:
+            return "-"
+        else:
+            return "+"
+```
+
+#VSLIDE
+
+## Result
+
+```
+...
+tests/test_number.py::test_get_sign_1 PASSED
+tests/test_number.py::test_get_sign_minus_1 PASSED
+tests/test_number.py::test_get_sign_zero PASSED
+...
+```
+
+#VSLIDE
+
+## What is the use-case of TDD?
+
+* Think about API before implementation.
+* Helps design testables piece of code.
+* Usually implement fully tested piece of code (100% code coverage.)
+
 #HSLIDE
 
 ## Fuzzing
 
+Calling a piece of code with very various inputs to find defects.
+
+#VSLIDE
+
+## Fuzzing in python
+
+```bash
+pip install hypothesis
+```
+
+#VSLIDE
+
+## Let's take a new method
+
+```python
+class Number():
+
+    def divisible_by_11():
+        """A number is divisible by 11 if and only if the alternating (in sign)
+        sum of the number’s digits is 0.
+        """
+        string_number = str(self.number)
+        alternating_sum = sum([(-1) ** i * int(d) for i, d
+                               in enumerate(string_number)])
+        return alternating_sum == 0
+```
+
+#VSLIDE 
+
+## Test it traditionnaly
+
+```python
+@pytest.mark.parametrize("number", range(1, 10))
+def test_is_divisible_by_11(number):
+    assert Number(number * 11).divisible_by_11() == True
+
+    assert Number(number * 11 + 1).divisible_by_11() == False
+```
+
+#VSLIDE
+
+## Output
+
+```
+...
+tests/test_number.py::test_is_divisible_by_11[1] PASSED
+tests/test_number.py::test_is_divisible_by_11[2] PASSED
+tests/test_number.py::test_is_divisible_by_11[3] PASSED
+tests/test_number.py::test_is_divisible_by_11[4] PASSED
+tests/test_number.py::test_is_divisible_by_11[5] PASSED
+tests/test_number.py::test_is_divisible_by_11[6] PASSED
+tests/test_number.py::test_is_divisible_by_11[7] PASSED
+tests/test_number.py::test_is_divisible_by_11[8] PASSED
+tests/test_number.py::test_is_divisible_by_11[9] PASSED
+...
+```
+
+#VSLIDE
+
+## Fuzz it
+
+```python
+from hypothesis import given  # This is how we will define inputs
+from hypothesis.strategies import integers  # This is the type of input we will use
+
+@given(number=integers(min_value=1))  # This is the main decorator
+def test_divisible_by_11(number):
+    assert Number(11 * number).divisible_by_11() == True
+```
+
+#VSLIDE
+
+## Output
+
+```python
+number = 19
+
+    @given(number=integers(min_value=1))  # This is the main decorator
+    def test_divisible_by_11(number):
+>       assert Number(11 * number).divisible_by_11() == True
+E       assert False == True
+E        +  where False = <bound method Number.divisible_by_11 of <main.Number object at 0x107288b10>>()
+E        +    where <bound method Number.divisible_by_11 of <main.Number object at 0x107288b10>> = <main.Number object at 0x107288b10>.divisible_by_11
+E        +      where <main.Number object at 0x107288b10> = Number((11 * 19))
+
+tests/test_number.py:71: AssertionError
+------------------------------------------------------------------------------------ Hypothesis -------------------------------------------------------------------------------------
+Falsifying example: test_divisible_by_11(number=19)
+```
+
+#VSLIDE
+
+## Failing test
+
+Hypothesis give us an example: `Falsifying example: test_divisible_by_11(number=19)`.
+
+`19×11=209` and it should be divisible by 11 by construction, we have a bug!
+
+We found very easily the defect with little code.
+
 #HSLIDE
 
-## Mutation testing
+## Thank you
 
-#HSLIDE
+Live long and test!

@@ -20,3 +20,9 @@ class Number(object):
         if self.number % 1 > 0:
             return int(self.number) + 1
         return self.number
+
+    def get_sign(self):
+        if self.number <= -1:
+            return "-"
+        else:
+            return "+"
