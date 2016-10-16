@@ -360,8 +360,8 @@ self = <tests.test_number.IsOddTestCase testMethod=test_is_not_odd_4>
 
         result = number.is_odd()
 
->       self.assertTrue(result)
-E       AssertionError: False is not true
+>       self.assertTrue(result, "4 should be odd")
+E       AssertionError: False != True : 4 should be odd
 
 tests/test_number.py:22: AssertionError
 ================= 1 failed, 1 passed, 1 pytest-warnings in 0.02 seconds ==================
@@ -654,6 +654,45 @@ def test_ceil_int():
             return int(self.number) + 1
         return self.number
 ```
+
+#HSLIDE
+
+## Code coverage
+
+How to quantify the quality and percentage of code that has been executed when executing the test suite?
+
+It's the code coverage.
+
+#VSLIDE
+
+## Get code coverage
+
+```bash
+pip install pytest-cov
+```
+
+#VSLIDE
+
+## Launch py.test
+
+```
+$> py.test --doctest-modules tests main.py -v
+...
+-------- coverage: platform darwin, python 2.7.12-candidate-1 --------
+Name      Stmts   Miss  Cover
+-----------------------------
+main.py       9      0   100%
+```
+
+#VSLIDE
+
+## HTML version
+
+```
+$> py.test --doctest-modules tests main.py -v --cov=main --cov-report=html
+```
+
+#VSLIDE?image=images/coverage_html.png
 
 #HSLIDE
 

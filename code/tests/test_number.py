@@ -20,7 +20,7 @@ class IsOddTestCase(unittest.TestCase):
 
         result = number.is_odd()
 
-        self.assertEqual(result, False)
+        self.assertFalse(result, "4 shouldn't be odd")
 
     # def test_first_ten_numbers(self):
     #     for i in range(10):
