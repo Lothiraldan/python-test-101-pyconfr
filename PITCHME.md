@@ -700,6 +700,8 @@ $> py.test --doctest-modules tests main.py -v --cov=main --cov-report=html
 
 <img src="images/waterfall.jpg" />
 
+#VSLIDE
+
 ## TDD
 
 <img src="images/tdd_flow.gif" />
