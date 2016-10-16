@@ -698,6 +698,8 @@ $> py.test --doctest-modules tests main.py -v --cov=main --cov-report=html
 
 ## TDD
 
+<img src="images/tdd_flow.gif" />
+
 #HSLIDE
 
 ## Fuzzing
